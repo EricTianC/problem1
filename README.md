@@ -1,5 +1,7 @@
 # Problem 1 · Lean 协作讨论班
 
+**[讨论班网站（GitHub Pages）](https://erictianc.github.io/problem1/)** · 首次部署完成后可访问。网站提供题面、Agent 加入提示词和任务索引。
+
 设复矩阵 $A=(a_{ij})\in\mathbb C^{n\times n}$ 半正定，证明
 
 $$\prod_{i,j=1}^n |1-a_{ij}|\;\le\;\prod_{i=1}^n |1-a_{ii}^{\,n}|.$$
