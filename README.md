@@ -1,6 +1,6 @@
 # Problem 1 · Lean 协作讨论班
 
-**[讨论班网站（GitHub Pages）](https://erictianc.github.io/problem1/)** · 首次部署完成后可访问。网站提供题面、Agent 加入提示词和任务索引。
+**当前是讨论班试跑阶段。** 专用 Lean 验证主机就绪前不发布网站；先用 GitHub Issues / PR 同步思路、代码和卡点，不要求把探索结果全部合入 `main`。
 
 设复矩阵 $A=(a_{ij})\in\mathbb C^{n\times n}$ 半正定，证明
 
@@ -10,7 +10,7 @@ $$\prod_{i,j=1}^n |1-a_{ij}|\;\le\;\prod_{i=1}^n |1-a_{ii}^{\,n}|.$$
 
 ## 加入讨论班
 
-把仓库链接和这句话一起丢给你的 Agent：**打开该仓库，先读 `AGENTS.md`；认领一个 `ready` Issue，然后提交可验证的结果或可复现的障碍。没有写权限时让操作者代发。**
+把 [Lean 4 形式化参考提示词](PROMPT.md) 复制给你的 Agent，再附上一个 [Issue](https://github.com/EricTianC/problem1/issues)、一条引理或一段纸笔推导。不用等到有完整证明再分享。
 
 需要 [Elan](https://lean-lang.org/install/) 与 Git。克隆仓库后：
 
@@ -19,16 +19,16 @@ lake exe cache get Mathlib.Analysis.Complex.Order Mathlib.LinearAlgebra.Matrix.P
 lake build
 ```
 
-- GitHub Issue 记录认领、路线和讨论；PR 记录正式成果。验收细节见 [`AGENTS.md`](AGENTS.md)。
+- 有思路、反例线索或卡点：在相关 Issue 简短回复「目标 / 进展 / 验证 / 下一步」；没有现成 Issue 再新开。
+- 有值得共享的 Lean 代码：开 draft PR 并链接相关 Issue，不必立即请求审阅或合并。具体约定见 [`AGENTS.md`](AGENTS.md)。
 - 可复用的失败路线保存在 [`attempts/`](attempts/)；群聊记录不默认公开。
 - 本地看网站：运行 `node scripts/serve.mjs`，打开 <http://localhost:4173>。需要 Node.js。
 
-## 发布给讨论班
+## 维护者：验证与上线
 
-1. 在 GitHub 建一个空仓库（若用公开 Pages，请先确认可以公开题面与协作记录）。将它添加为 `origin`，推送 `main`。
-2. [发布首批 Issues](#发布首批-issues)。
-3. 在 **Settings → Pages → Build and deployment → Source** 选 **GitHub Actions**，再运行 **Verify and publish** workflow（`main`）。绿色构建后，Actions 的 `pages` 部署会给出网址。
-4. 保护 `main`：要求 `verify` 检查通过和维护者审阅后合并，关闭直接推送。题面、工具链、工作流的变更单独审查。不要给外部 PR 的验证作业配置密钥。
+试跑不要求批量建任务：[手动开 Issue](https://github.com/EricTianC/problem1/issues/new) 即可；需要时才[导入首批 Issues](#发布首批-issues)。正式合并到 `main` 仍走 PR 审阅和 `verify`；当前的 GitHub Actions 不是专用验证主机。
+
+准备公开网站时，先把专用验证主机接入并验证其结果，再到 **Settings → Pages → Build and deployment → Source** 选 **GitHub Actions**。之后在 **Settings → Secrets and variables → Actions → Variables** 将仓库变量 `PUBLISH_PAGES` 设为 `true`，在 `main` 上运行 **Verify and publish**。[Pages 网址](https://erictianc.github.io/problem1/)以 `pages` 作业成功部署为准。
 
 网站的任务索引来自 `site/tasks.json`，实时认领情况以 Issue 为准；该文件也用于首次导入，避免手工抄写。部署版的验收记录链接到实际构建运行，预览版不冒充 CI 结果。
 

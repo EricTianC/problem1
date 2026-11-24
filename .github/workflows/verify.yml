@@ -26,7 +26,7 @@ jobs:
           use-github-cache: false
 
   package-pages:
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    if: vars.PUBLISH_PAGES == 'true' && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: verify
     runs-on: ubuntu-latest
     steps:
