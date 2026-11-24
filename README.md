@@ -32,6 +32,8 @@ lake build
 
 网站的任务索引来自 `site/tasks.json`，实时认领情况以 Issue 为准；该文件也用于首次导入，避免手工抄写。部署版的验收记录链接到实际构建运行，预览版不冒充 CI 结果。
 
+Pages 在 `verify` 通过后由 `package-pages` 上传产物，再由 `pages` 部署。若只有 `pages` 失败且该次运行的 `github-pages` 产物仍在，可点 **Re-run failed jobs** 重试部署；产物已过期则在 `main` 上发起一次新的 **Run workflow**。
+
 ### 发布首批 Issues
 
 **批量发布需要仓库写权限，不需要 Owner、Admin 或 Maintain。** 普通成员可以在可访问的仓库里认领、评论和提任务；但 [GitHub 创建 Issue 的 API](https://docs.github.com/en/rest/issues/issues#create-an-issue) 只允许有推送权限的用户在创建时设置标签，权限不足会静默丢弃 `ready`。组织仓库的 `Triage` 足够给现有 Issue 贴标签和派单，不足以运行本批量发布流程。

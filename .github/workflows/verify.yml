@@ -25,12 +25,32 @@ jobs:
           axiom-audit: true
           use-github-cache: false
 
-  pages:
+  package-pages:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: verify
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Attach verified revision
+        run: |
+          node > site/deployment.json <<'JS'
+          const { GITHUB_SERVER_URL, GITHUB_REPOSITORY, GITHUB_SHA, GITHUB_RUN_ID } = process.env;
+          process.stdout.write(JSON.stringify({
+            repo: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}`,
+            sha: GITHUB_SHA,
+            runId: GITHUB_RUN_ID,
+          }));
+          JS
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  pages:
+    needs: package-pages
+    runs-on: ubuntu-latest
     permissions:
-      contents: read
       pages: write
       id-token: write
     concurrency:
@@ -40,15 +60,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
       - uses: actions/configure-pages@v5
-      - name: Attach verified revision
-        run: |
-          node -e 'const { GITHUB_SERVER_URL, GITHUB_REPOSITORY, GITHUB_SHA, GITHUB_RUN_ID } = process.env; process.stdout.write(JSON.stringify({ repo: `${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}`, sha: GITHUB_SHA, runId: GITHUB_RUN_ID }));' > site/deployment.json
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
       - uses: actions/deploy-pages@v4
         id: deploy
