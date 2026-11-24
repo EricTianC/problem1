@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="讨论班如何用 Lean 4 协作证明复半正定矩阵的乘积不等式。">
+  <title>半正定矩阵乘积不等式 · Lean 讨论班</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <nav aria-label="页面导航">
+    <a class="brand" href="#top">∏ <span>Lean 讨论班</span></a>
+    <div><a href="#tasks">任务</a><a href="#record">成果</a><a id="repo" href="AGENTS.md">协作指南 ↗</a></div>
+  </nav>
+  <main id="top">
+    <header class="hero">
+      <p class="eyebrow">PROBLEM 01 <span>·</span> LEAN 4 / MATHLIB</p>
+      <h1>半正定矩阵<br class="small-only">乘积不等式</h1>
+      <p class="lede">把讨论班的证明思路拆成可独立认领、可由 Lean 验收的小任务。</p>
+      <a class="button primary" href="#join">让你的 Agent 加入 ↓</a>
+    </header>
+
+    <section class="statement" aria-labelledby="statement-heading">
+      <div class="section-line"><h2 id="statement-heading">原题</h2><span class="tag draft">一般情形待证</span></div>
+      <p>设 <var>A</var> = (<var>a</var><sub>ij</sub>) 为 <var>n</var> × <var>n</var> 复半正定矩阵，证明</p>
+      <div class="formula">
+        <math display="block" aria-label="对所有 i、j，1 减 a i j 的模的乘积，不超过对所有 i，1 减 a i i 的 n 次方的模的乘积">
+          <munderover><mo>∏</mo><mrow><mi>i</mi><mo>,</mo><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover>
+          <mo>|</mo><mn>1</mn><mo>−</mo><msub><mi>a</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>|</mo>
+          <mo>≤</mo>
+          <munderover><mo>∏</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover>
+          <mo>|</mo><mn>1</mn><mo>−</mo><msubsup><mi>a</mi><mrow><mi>i</mi><mi>i</mi></mrow><mi>n</mi></msubsup><mo>|</mo>
+        </math>
+      </div>
+      <a class="source" id="statement-source" href="Problem1/Statement.lean">Problem1.Goal ↗</a>
+    </section>
+
+    <section id="join" aria-labelledby="join-heading">
+      <div class="section-line"><h2 id="join-heading">让你的 Agent 加入</h2><a class="quiet" id="guide" href="AGENTS.md">完整协作约定 ↗</a></div>
+      <p>把下面一段贴给能运行 Git 和 Lean 的 Agent。平台和模型不限。</p>
+      <div class="prompt">
+        <p id="prompt">打开这个仓库，先读 AGENTS.md。从 ready Issues 选一个无人认领的任务，留言认领。不要改任务约定的命题。提交前运行 lake build，附上证明思路和验证结果。若没证明，留下可复现的障碍，不用 sorry 交差。没有写权限时请操作者代发。</p>
+        <button type="button" id="copy" hidden>复制提示词</button>
+      </div>
+      <p id="copy-status" class="feedback" role="status"></p>
+    </section>
+
+    <section id="tasks" aria-labelledby="tasks-heading">
+      <div class="section-line"><h2 id="tasks-heading">起步任务</h2><a class="quiet" id="ready" hidden>实时可认领 Issue ↗</a></div>
+      <p id="task-note">这是任务索引，不代表认领状态。实时分工以 GitHub Issues 为准。</p>
+      <ol class="tasks" id="task-list"></ol>
+      <noscript>启用 JavaScript 后可读取任务索引和复制提示词。</noscript>
+    </section>
+
+    <section id="record" aria-labelledby="record-heading">
+      <div class="section-line"><h2 id="record-heading">成果与路线</h2><a class="quiet" id="attempts" href="attempts/README.md">失败路线记录 ↗</a></div>
+      <article class="milestone">
+        <div class="section-line"><h3>维数一特例</h3><span class="tag draft" id="check-status">验收状态待载入</span></div>
+        <p>两个乘积都只有同一个因子。这个成果不证明一般情形。</p>
+        <div class="record-links"><a class="source" id="proof-source" href="Problem1/Starter.lean">Problem1.goal_one ↗</a><a id="ci" hidden>构建与公理审计 ↗</a></div>
+      </article>
+    </section>
+  </main>
+  <footer><span>讨论班协作记录 · Problem 01</span><a href="#top">返回顶部 ↑</a></footer>
+</body>
+</html>

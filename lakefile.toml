@@ -1,0 +1,10 @@
+name = "Problem1"
+defaultTargets = ["Problem1"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.36.0"
+
+[[lean_lib]]
+name = "Problem1"
